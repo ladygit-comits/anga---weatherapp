@@ -1,0 +1,145 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0f172a;
+  font-family: 'Poppins', sans-serif;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.weather-app {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 2rem;
+  color: #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.search-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #facc15;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.search-bar {
+  display: flex;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 30px;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.search-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem;
+  outline: none;
+}
+
+.search-bar i {
+  color: #facc15;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.search-bar i:hover {
+  color: #fcd34d;
+}
+
+.css-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #facc15;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 2rem auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.weather img {
+  width: 120px;
+  margin: 1rem 0;
+  filter: drop-shadow(3px 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+.temp {
+  font-size: 3.5rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, #ffffff, #dddddd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.weather-type {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.weather-date p {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+  margin-top: 0.5rem;
+}
+
+.weather-data {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.weather-data > div {
+  flex: 1 1 45%;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.weather-data > div:hover {
+  transform: translateY(-4px);
+}
+
+.data-name {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
