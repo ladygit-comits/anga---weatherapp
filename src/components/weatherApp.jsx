@@ -79,18 +79,8 @@ const WeatherApp = () => {
   const currentDate = new Date();
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
   const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
   ];
   const dayOfWeek = daysOfWeek[currentDate.getDay()];
   const month = months[currentDate.getMonth()];
@@ -167,7 +157,7 @@ const WeatherApp = () => {
               </div>
               <div className="sunset">
                 <div className="data-name">Sunset</div>
-                <i className="fa-regular fa-moon"></i>
+                <i className="fa-solid fa-moon"></i>
                 <div className="data">
                   {data.sys
                     ? new Date(data.sys.sunset * 1000).toLocaleTimeString([], {
@@ -180,6 +170,7 @@ const WeatherApp = () => {
             </div>
           </>
         )}
+        <div className="footer">© {new Date().getFullYear()} KAVANDA </div>
       </div>
     </div>
   );
