@@ -205,3 +205,39 @@
     overflow-y: auto;
   }
 }
+
+.fav-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.fav-button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.3s ease;
+}
+
+.fav-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.delete-button {
+  background: transparent;
+  border: none;
+  color: #f87171;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+.delete-button:hover {
+  color: #ef4444;
+}
+
