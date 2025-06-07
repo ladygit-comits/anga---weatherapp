@@ -9,6 +9,7 @@ const WeatherApp = () => {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
   const [loading, setLoading] = useState(false);
+  const [favorites, setFavorites] = useState([]);
   const api_key = "2a9567e262ddb27328da4e76ec3eca61";
 
   useEffect(() => {
@@ -50,6 +51,21 @@ const WeatherApp = () => {
     }
   };
 
+  const addToFavorites = () => {
+    if (data.name && !favorites.includes(data.name)) {
+      setFavorites([...favorites, data.name]);
+    }
+  };
+
+  const fetchFavorite = async (city) => {
+    setLoading(true);
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${api_key}`;
+    const res = await fetch(url);
+    const favData = await res.json();
+    setData(favData);
+    setLoading(false);
+  };
+
   const weatherImages = {
     Clear: sunny,
     Clouds: cloudy,
@@ -78,10 +94,7 @@ const WeatherApp = () => {
 
   const currentDate = new Date();
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
-  const months = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-  ];
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const dayOfWeek = daysOfWeek[currentDate.getDay()];
   const month = months[currentDate.getMonth()];
   const dayOfMonth = currentDate.getDate();
@@ -91,11 +104,7 @@ const WeatherApp = () => {
     <div className="container" style={{ backgroundImage }}>
       <div
         className="weather-app"
-        style={{
-          backgroundImage: backgroundImage?.replace
-            ? backgroundImage.replace("to right", "to top")
-            : null,
-        }}
+        style={{ backgroundImage: backgroundImage.replace("to right", "to top") }}
       >
         <div className="search">
           <div className="search-top">
@@ -114,6 +123,14 @@ const WeatherApp = () => {
           </div>
         </div>
 
+        <div className="favorites">
+          {favorites.map((city, idx) => (
+            <button key={idx} onClick={() => fetchFavorite(city)} className="fav-button">
+              {city}
+            </button>
+          ))}
+        </div>
+
         {loading ? (
           <div className="css-spinner"></div>
         ) : data.notFound ? (
@@ -125,9 +142,7 @@ const WeatherApp = () => {
             </div>
             <div className="extra-info">
               <div className="weather-type">{data.weather?.[0].main}</div>
-              <div className="temp">
-                {data.main ? `${Math.floor(data.main.temp)}°` : null}
-              </div>
+              <div className="temp">{data.main ? `${Math.floor(data.main.temp)}°` : null}</div>
               <div className="weather-date">
                 <p>{formattedDate}</p>
               </div>
@@ -168,9 +183,10 @@ const WeatherApp = () => {
                 </div>
               </div>
             </div>
+            <button className="save-btn" onClick={addToFavorites}>★ Save City</button>
           </>
         )}
-        <div className="footer">© {new Date().getFullYear()} KAVANDA </div>
+        <div className="footer">© {new Date().getFullYear()} KAVANDA</div>
       </div>
     </div>
   );
