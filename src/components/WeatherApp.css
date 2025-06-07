@@ -151,43 +151,20 @@
   margin-top: 1.5rem;
 }
 
-.fav-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(255, 255, 255, 0.07);
-  padding: 0.3rem 0.6rem;
-  border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
 .fav-button {
-  background: rgba(255, 255, 255, 0.08);
+  padding: 0.4rem 0.8rem;
+  background: #facc15;
   border: none;
-  color: #e2e8f0;
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  cursor: pointer;
+  border-radius: 6px;
   font-size: 0.875rem;
+  font-weight: 600;
+  color: #1e293b;
+  cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .fav-button:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.delete-button {
-  background: transparent;
-  border: none;
-  color: #f87171;
-  font-size: 1rem;
-  cursor: pointer;
-  font-weight: bold;
-  transition: color 0.2s ease;
-}
-
-.delete-button:hover {
-  color: #ef4444;
+  background: #fde68a;
 }
 
 .save-btn {
