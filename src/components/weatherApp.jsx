@@ -1,121 +1,154 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./WeatherApp.css";
 
-function WeatherApp() {
-  const [city, setCity] = useState('');
-  const [weather, setWeather] = useState(null);
+const WeatherApp = () => {
+  const [city, setCity] = useState("");
+  const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState([]);
 
-  const fetchWeather = async (cityName) => {
+  const apiKey = "e9bd5ff51e5dce2df96f6fa275ff8ffb";
+
+  const getWeather = async (cityName) => {
     setLoading(true);
     try {
-      const apiKey = 'YOUR_API_KEY';
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`
+      const response = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`
       );
-      if (!response.ok) throw new Error('City not found');
-      const data = await response.json();
-      setWeather(data);
-    } catch (error) {
-      alert(error.message);
-    } finally {
-      setLoading(false);
+      const weather = response.data;
+      const weatherType = weather.weather[0].main;
+      const weatherIcons = {
+        Clouds: "clouds.png",
+        Rain: "rain.png",
+        Clear: "clear.png",
+        Mist: "mist.png",
+        Drizzle: "drizzle.png",
+        Snow: "snow.png",
+        Thunderstorm: "thunderstorm.png",
+      };
+      setData({
+        name: weather.name,
+        temp: weather.main.temp,
+        humidity: weather.main.humidity,
+        wind: weather.wind.speed,
+        weather: weather.weather[0].main,
+        icon: weatherIcons[weatherType] || "default.png",
+        sunrise: new Date(weather.sys.sunrise * 1000).toLocaleTimeString(),
+        sunset: new Date(weather.sys.sunset * 1000).toLocaleTimeString(),
+        date: new Date().toLocaleDateString(),
+      });
+    } catch {
+      setData({ notFound: true });
     }
+    setLoading(false);
   };
 
   const handleSearch = () => {
     if (city.trim()) {
-      fetchWeather(city);
-      if (!favorites.includes(city)) {
-        setFavorites([city, ...favorites]);
-      }
-      setCity('');
+      getWeather(city);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") handleSearch();
+  };
+
+  const saveToFavorites = () => {
+    if (city && !favorites.includes(city)) {
+      setFavorites([...favorites, city]);
     }
   };
 
   const handleFavoriteClick = (favCity) => {
-    fetchWeather(favCity);
+    setCity(favCity);
+    getWeather(favCity);
   };
 
-  const handleDeleteFavorite = (cityName) => {
-    const updatedFavorites = favorites.filter((c) => c !== cityName);
-    setFavorites(updatedFavorites);
+  const getBackgroundStyle = (weatherType) => {
+    const gradients = {
+      Clear: "linear-gradient(to right, #facc15, #fcd34d)",
+      Clouds: "linear-gradient(to right, #94a3b8, #cbd5e1)",
+      Rain: "linear-gradient(to right, #60a5fa, #3b82f6)",
+      Mist: "linear-gradient(to right, #a5b4fc, #818cf8)",
+      Drizzle: "linear-gradient(to right, #38bdf8, #0ea5e9)",
+      Snow: "linear-gradient(to right, #f0f9ff, #bae6fd)",
+      Thunderstorm: "linear-gradient(to right, #818cf8, #6366f1)",
+    };
+    return gradients[weatherType] || "linear-gradient(to right, #94a3b8, #cbd5e1)";
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{ background: getBackgroundStyle(data.weather) }}>
       <div className="weather-app">
         <div className="search">
-          <div className="search-top">Search for a city</div>
+          <div className="search-top">
+            <i className="fas fa-location-dot"></i> Enter your city
+          </div>
           <div className="search-bar">
             <input
               type="text"
-              placeholder="Enter city"
+              placeholder="Search City"
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+              onKeyDown={handleKeyPress}
             />
             <i className="fas fa-search" onClick={handleSearch}></i>
           </div>
         </div>
 
-        {loading && <div className="css-spinner"></div>}
-
-        {weather && (
-          <div className="weather">
-            <img
-              src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-              alt={weather.weather[0].description}
-            />
-            <div className="temp">{Math.round(weather.main.temp)}°C</div>
-            <div className="weather-type">{weather.weather[0].main}</div>
+        {loading ? (
+          <div className="css-spinner"></div>
+        ) : data.notFound ? (
+          <div style={{ color: "#fff" }}>City not found</div>
+        ) : data.name ? (
+          <>
+            <div className="weather">
+              <img src={require(`./assets/${data.icon}`)} alt="weather-icon" />
+              <div className="temp">{Math.round(data.temp)}°C</div>
+            </div>
+            <div className="weather-type">{data.weather}</div>
             <div className="weather-date">
-              <p>{new Date().toLocaleDateString()}</p>
+              <p>{data.date}</p>
             </div>
             <div className="weather-data">
               <div>
                 <div className="data-name">Humidity</div>
-                <div>{weather.main.humidity}%</div>
+                <div>{data.humidity}%</div>
               </div>
               <div>
-                <div className="data-name">Wind Speed</div>
-                <div>{weather.wind.speed} m/s</div>
+                <div className="data-name">Wind</div>
+                <div>{data.wind} km/h</div>
               </div>
               <div>
-                <div className="data-name">Pressure</div>
-                <div>{weather.main.pressure} hPa</div>
+                <div className="data-name">Sunrise</div>
+                <div>{data.sunrise}</div>
               </div>
               <div>
-                <div className="data-name">Feels Like</div>
-                <div>{Math.round(weather.main.feels_like)}°C</div>
+                <div className="data-name">Sunset</div>
+                <div>{data.sunset}</div>
               </div>
             </div>
-          </div>
+            <button className="save-btn" onClick={saveToFavorites}>
+              ★ Save City
+            </button>
+          </>
+        ) : (
+          <div style={{ color: "#cbd5e1" }}>Search a city to see the weather</div>
         )}
 
-        {favorites.length > 0 && (
-          <div className="favorites" style={{ marginTop: '2rem', width: '100%' }}>
-            <h4 style={{ color: '#facc15', marginBottom: '0.5rem' }}>Saved Cities</h4>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-              {favorites.map((fav, idx) => (
-                <div key={idx} className="fav-wrapper">
-                  <button className="fav-button" onClick={() => handleFavoriteClick(fav)}>
-                    {fav}
-                  </button>
-                  <button className="delete-button" onClick={() => handleDeleteFavorite(fav)}>
-                    &times;
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        <div className="favorites">
+          {favorites.map((fav, idx) => (
+            <button key={idx} className="fav-button" onClick={() => handleFavoriteClick(fav)}>
+              {fav}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div className="footer">Weather App &copy; 2025</div>
+      <div className="footer">Made by You</div>
     </div>
   );
-}
+};
 
 export default WeatherApp;
