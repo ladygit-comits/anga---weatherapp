@@ -134,7 +134,7 @@ const WeatherApp = () => {
         {loading ? (
           <div className="css-spinner"></div>
         ) : data.notFound ? (
-          <div className="notFound">Not Found 😒</div>
+         <div className="notFound">Not Found 🤷🏽‍♀️</div>
         ) : (
           <>
             <div className="weather">
