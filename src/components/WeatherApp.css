@@ -205,3 +205,13 @@
     overflow-y: auto;
   }
 }
+
+.notFound {
+  font-size: 2.5rem;      
+  font-weight: 600;     
+  text-align: center;
+  margin: 3rem 0;
+  color: #facc15;         
+  user-select: none;      
+}
+
