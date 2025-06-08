@@ -4,31 +4,29 @@
   min-height: 100vh;
   background: #0f172a;
   font-family: 'Poppins', sans-serif;
-  padding: 2rem;
+  padding: 1rem;
   box-sizing: border-box;
 }
 
 .weather-app {
   flex: 1;
-  max-width: 420px;
+  max-width: 380px;
   width: 100%;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(16px);
   border-radius: 20px;
-  padding: 1.5rem 1.5rem 3rem 1.5rem;
+  padding: 1.5rem;
   color: #fff;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-height: 90vh;
-  overflow: hidden;
 }
 
 .search {
   width: 100%;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .search-top {
@@ -36,16 +34,16 @@
   align-items: center;
   gap: 0.5rem;
   color: #facc15;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .search-bar {
   display: flex;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 30px;
-  padding: 0.4rem 0.8rem;
+  padding: 0.3rem 0.6rem;
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
@@ -54,16 +52,16 @@
   background: transparent;
   border: none;
   color: #fff;
-  font-size: 1rem;
-  padding: 0.5rem;
+  font-size: 0.9rem;
+  padding: 0.4rem;
   outline: none;
 }
 
 .search-bar i {
   color: #facc15;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
-  margin-left: 0.5rem;
+  margin-left: 0.4rem;
   transition: color 0.3s ease;
 }
 
@@ -72,13 +70,13 @@
 }
 
 .css-spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
   border-top-color: #facc15;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: 2rem auto;
+  margin: 1.5rem auto;
 }
 
 @keyframes spin {
@@ -94,12 +92,12 @@
 }
 
 .temp {
-  font-size: 2.8rem;
+  font-size: 3rem;
   font-weight: bold;
   background: linear-gradient(45deg, #ffffff, #dddddd);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.4rem;
 }
 
 .weather-type {
@@ -111,7 +109,7 @@
 .weather-date p {
   font-size: 0.85rem;
   color: #cbd5e1;
-  margin-top: 0.3rem;
+  margin-top: 0.4rem;
 }
 
 .weather-data {
@@ -132,7 +130,6 @@
   color: #e2e8f0;
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease;
-  font-size: 0.85rem;
 }
 
 .weather-data > div:hover {
@@ -140,7 +137,7 @@
 }
 
 .data-name {
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   color: #94a3b8;
   margin-bottom: 0.25rem;
@@ -159,7 +156,7 @@
   background: #facc15;
   border: none;
   border-radius: 6px;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #1e293b;
   cursor: pointer;
@@ -171,7 +168,7 @@
 }
 
 .save-btn {
-  margin-top: 1.2rem;
+  margin-top: 1rem;
   padding: 0.4rem 1rem;
   background: #facc15;
   color: #1e293b;
@@ -189,29 +186,24 @@
 
 .footer {
   width: 100%;
-  padding: 1.5rem 0;
+  position: fixed;
+  bottom: 1.5rem;
+  left: 0;
+  padding: 0.8rem 0;
   text-align: center;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   color: #94a3b8;
   background: transparent;
   border: none;
   box-shadow: none;
-  margin-top: 1.5rem;
-  position: relative;
   z-index: 1000;
 }
 
-@media (max-width: 480px) {
-  .weather-app {
-    max-height: none;
-  }
-}
-
 .notFound {
-  font-size: 2.5rem;      
+  font-size: 2rem;      
   font-weight: 600;     
   text-align: center;
-  margin: 3rem 0;       
+  margin: 2rem 0;       
   user-select: none;      
 }
 
@@ -219,12 +211,11 @@
   background-color: rgba(255, 255, 255, 0.15);
   border-radius: 1rem;
   padding: 0.8rem;
-  margin-top: 1rem;
+  margin-top: 0.8rem;
   text-align: center;
   color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-  font-size: 0.9rem;
 }
 
 .feels-like:hover {
@@ -234,19 +225,19 @@
 .feels-like .data-name {
   font-weight: bold;
   font-size: 1rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.4rem;
 }
 
 .feels-like i {
-  font-size: 1.2rem;
-  margin-bottom: 0.3rem;
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
   display: block;
 }
 
 .feels-like .data {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.4rem;
 }
 
 .weather-tip {
