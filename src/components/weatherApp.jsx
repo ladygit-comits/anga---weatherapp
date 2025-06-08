@@ -76,6 +76,23 @@ const WeatherApp = () => {
     Thunderstorm: stormy,
   };
 
+  const getWeatherTip = (weatherType) => {
+    switch (weatherType) {
+      case "Rain":
+        return "☔ Grab an umbrella—it’s cozy weather for a warm drink!";
+      case "Clear":
+        return "😎 Perfect for a walk—don’t forget sunscreen!";
+      case "Clouds":
+        return "☁️ A calm day—maybe carry a light jacket.";
+      case "Snow":
+        return "❄️ Bundle up—snowy and chilly outside!";
+      case "Thunderstorm":
+        return "⛈️ Stay indoors and stay safe!";
+      default:
+        return "🌡️ Dress comfortably and stay hydrated.";
+    }
+  };
+
   const weatherImage = data.weather ? weatherImages[data.weather[0].main] : null;
 
   const backgroundImages = {
@@ -134,7 +151,7 @@ const WeatherApp = () => {
         {loading ? (
           <div className="css-spinner"></div>
         ) : data.notFound ? (
-         <div className="notFound">Not Found 🤷🏽‍♀️</div>
+          <div className="notFound">Not Found 🤷🏽‍♀️</div>
         ) : (
           <>
             <div className="weather">
@@ -147,6 +164,7 @@ const WeatherApp = () => {
                 <p>{formattedDate}</p>
               </div>
             </div>
+
             <div className="weather-data">
               <div className="humidity">
                 <div className="data-name">Humidity</div>
@@ -182,7 +200,15 @@ const WeatherApp = () => {
                     : null}
                 </div>
               </div>
+              {/* Feels Like + Weather Tip */}
+              <div className="feels-like">
+                <div className="data-name">Feels Like</div>
+                <i className="fa-solid fa-temperature-half"></i>
+                <div className="data">{data.main ? `${Math.round(data.main.feels_like)}°C` : null}</div>
+                <div className="weather-tip">{data.weather ? getWeatherTip(data.weather[0].main) : ""}</div>
+              </div>
             </div>
+
             <button className="save-btn" onClick={addToFavorites}>★ Save City</button>
           </>
         )}
