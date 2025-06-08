@@ -5,8 +5,8 @@
   background: #0f172a;
   font-family: 'Poppins', sans-serif;
   padding: 2rem;
+  padding-bottom: 5rem;
   box-sizing: border-box;
-  padding-bottom: 5rem; 
 }
 
 .weather-app {
@@ -23,10 +23,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  max-height: 80vh;       
-  overflow-y: auto;     
-  padding-bottom: 3rem;  
 }
 
 .search {
@@ -174,7 +170,7 @@
 
 .save-btn {
   margin-top: 1.2rem;
-  margin-bottom: 1.5rem; 
+  margin-bottom: 2rem;
   padding: 0.5rem 1.2rem;
   background: #facc15;
   color: #1e293b;
@@ -207,8 +203,6 @@
 
 @media (max-width: 480px) {
   .weather-app {
-    max-height: 80vh;
-    overflow-y: auto;
   }
 }
 
