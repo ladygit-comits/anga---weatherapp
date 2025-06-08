@@ -76,23 +76,6 @@ const WeatherApp = () => {
     Thunderstorm: stormy,
   };
 
-  const getWeatherTip = (weatherType) => {
-    switch (weatherType) {
-      case "Rain":
-        return "☔ Grab an umbrella—it’s cozy weather for a warm drink!";
-      case "Clear":
-        return "😎 Perfect for a walk—don’t forget sunscreen!";
-      case "Clouds":
-        return "☁️ A calm day—maybe carry a light jacket.";
-      case "Snow":
-        return "❄️ Bundle up—snowy and chilly outside!";
-      case "Thunderstorm":
-        return "⛈️ Stay indoors and stay safe!";
-      default:
-        return "🌡️ Dress comfortably and stay hydrated.";
-    }
-  };
-
   const weatherImage = data.weather ? weatherImages[data.weather[0].main] : null;
 
   const backgroundImages = {
@@ -116,6 +99,31 @@ const WeatherApp = () => {
   const month = months[currentDate.getMonth()];
   const dayOfMonth = currentDate.getDate();
   const formattedDate = `${dayOfWeek}, ${dayOfMonth} ${month}`;
+
+  // Generate a weather tip with emoji based on conditions
+  const getWeatherTip = () => {
+    if (!data.main || !data.weather) return null;
+
+    const temp = data.main.temp;
+    const main = data.weather[0].main;
+
+    if (main === "Rain" || main === "Thunderstorm") {
+      return "☔ Don't forget your umbrella!";
+    }
+    if (main === "Snow") {
+      return "❄️ Stay warm and drive safely!";
+    }
+    if (temp >= 30) {
+      return "🔥 It's hot outside, stay hydrated!";
+    }
+    if (temp <= 10) {
+      return "🧥 It's chilly, dress warmly!";
+    }
+    if (main === "Clear") {
+      return "☀️ Perfect day to be outdoors!";
+    }
+    return "🌤️ Have a nice day!";
+  };
 
   return (
     <div className="container" style={{ backgroundImage }}>
@@ -165,6 +173,16 @@ const WeatherApp = () => {
               </div>
             </div>
 
+            {/* New Feels Like card */}
+            {data.main?.feels_like !== undefined && (
+              <div className="feels-like">
+                <i className="fa-solid fa-temperature-half"></i>
+                <div className="data-name">Feels Like</div>
+                <div className="data">{Math.floor(data.main.feels_like)}°C</div>
+                <div className="weather-tip">{getWeatherTip()}</div>
+              </div>
+            )}
+
             <div className="weather-data">
               <div className="humidity">
                 <div className="data-name">Humidity</div>
@@ -200,15 +218,7 @@ const WeatherApp = () => {
                     : null}
                 </div>
               </div>
-              {/* Feels Like + Weather Tip */}
-              <div className="feels-like">
-                <div className="data-name">Feels Like</div>
-                <i className="fa-solid fa-temperature-half"></i>
-                <div className="data">{data.main ? `${Math.round(data.main.feels_like)}°C` : null}</div>
-                <div className="weather-tip">{data.weather ? getWeatherTip(data.weather[0].main) : ""}</div>
-              </div>
             </div>
-
             <button className="save-btn" onClick={addToFavorites}>★ Save City</button>
           </>
         )}
